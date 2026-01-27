@@ -1,0 +1,39 @@
+# Data Processing (for data generation)
+pandas>=2.1.0
+numpy>=1.24.0
+pyarrow>=14.0.0
+Jinja2>=3.1.0
+
+# Configuration Management
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
+
+# HTTP and API (for NVIDIA API)
+requests>=2.31.0
+openai>=1.0.0
+
+# CLI and Progress
+tqdm>=4.66.0
+click>=8.1.0
+
+# Deep Learning Frameworks (for training - step 3)
+torch>=2.1.0
+transformers>=4.36.0
+accelerate>=0.25.0
+peft>=0.7.0
+
+# Evaluation Metrics (for evaluation - step 4)
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# API and Deployment (for inference endpoints)
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+
+# Optional: High-Performance Serving
+# vllm>=0.2.7  # Uncomment for vLLM deployment
+
+# Optional: Development
+jupyter
+ipython

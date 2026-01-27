@@ -1,0 +1,116 @@
+# NeMo Automodel Training Configuration for Logistics Sit Rep Fine-Tuning
+# Based on automodel.ipynb pattern for Nemotron Nano 3 PEFT training
+
+# Training loop configuration - controls steps, checkpointing, and validation
+step_scheduler:
+  global_batch_size: 4      # Total samples across all GPUs per step (4B model fits comfortably)
+  local_batch_size: 1       # Samples per GPU per forward pass
+  max_steps: 100            # Total training steps (adjust based on dataset size)
+  ckpt_every_steps: 50      # Save checkpoint every N steps
+  val_every_steps: 50       # Run validation every N steps
+
+# Distributed environment configuration (single GPU setup)
+dist_env:
+  backend: nccl             # NVIDIA collective communications library
+  timeout_minutes: 1        # Wait time for GPU communication before failure
+
+# Random Number Generator for reproducibility
+rng:
+  _target_: nemo_automodel.components.training.rng.StatefulRNG
+  seed: 1111
+  ranked: true              # Each GPU rank gets different but deterministic seed
+
+# Model configuration - load pretrained Nemotron Mini 4B (standard Transformer architecture)
+model:
+  _target_: nemo_automodel.NeMoAutoModelForCausalLM.from_pretrained
+  pretrained_model_name_or_path: nvidia/Nemotron-Mini-4B-Instruct
+  force_hf: true                # Force loading from HuggingFace, not checkpoint
+
+# Explicitly disable checkpoint resumption (start fresh)
+restore_from: null
+
+# Torch compile configuration (optional - can improve performance)
+compile:
+  enabled: false
+  mode: "default"           # Options: "default", "reduce-overhead", "max-autotune"
+  fullgraph: false
+  dynamic: true             # Set to false for better performance with fixed shapes
+  backend: null             # Use default backend (inductor)
+
+# Distributed training strategy (single GPU - no parallelization)
+distributed:
+  _target_: nemo_automodel.components.distributed.fsdp2.FSDP2Manager
+  dp_size: none
+  dp_replicate_size: 1      # For DDP usecase, use DDPManager
+  tp_size: 1                # Tensor parallelism (1 = disabled)
+  cp_size: 1                # Context parallelism (1 = disabled)
+  sequence_parallel: false
+  defer_fsdp_grad_sync: false
+
+# Loss function configuration
+loss_fn:
+  _target_: nemo_automodel.components.loss.masked_ce.MaskedCrossEntropy
+
+# Training dataset configuration
+# Uses ColumnMappedTextInstructionDataset for flexible column mapping
+# Our JSONL has 'input' and 'output' fields which map to 'question' and 'answer'
+dataset:
+  _target_: nemo_automodel.components.datasets.llm.column_mapped_text_instruction_dataset.ColumnMappedTextInstructionDataset
+  path_or_dataset_id: "data/processed/train.jsonl"
+  column_mapping:
+    question: input         # Maps our 'input' field to 'question'
+    answer: output          # Maps our 'output' field to 'answer'
+  answer_only_loss_mask: true  # Only compute loss on answer tokens (not question)
+
+# Packed sequence configuration (disabled for now)
+packed_sequence:
+  packed_sequence_size: 0   # 0 = disabled, >0 = pack multiple examples into one sequence
+
+# Training dataloader configuration
+dataloader:
+  _target_: torchdata.stateful_dataloader.StatefulDataLoader
+  collate_fn: nemo_automodel.components.datasets.utils.default_collater
+  shuffle: true             # Shuffle training data
+
+# Validation dataset configuration
+validation_dataset:
+  _target_: nemo_automodel.components.datasets.llm.column_mapped_text_instruction_dataset.ColumnMappedTextInstructionDataset
+  path_or_dataset_id: "data/processed/val.jsonl"
+  column_mapping:
+    question: input
+    answer: output
+  answer_only_loss_mask: true
+
+# Validation dataloader configuration
+validation_dataloader:
+  _target_: torchdata.stateful_dataloader.StatefulDataLoader
+  collate_fn: nemo_automodel.components.datasets.utils.default_collater
+
+# Optimizer configuration - Adam with standard parameters
+optimizer:
+  _target_: torch.optim.Adam
+  betas: [0.9, 0.999]
+  eps: 1e-8
+  lr: 1.0e-5                # Learning rate
+  weight_decay: 0           # L2 regularization
+
+# Learning rate scheduler - cosine decay
+lr_scheduler:
+  lr_decay_style: cosine    # Cosine annealing
+  min_lr: 1.0e-6            # Minimum learning rate at end of schedule
+
+# PEFT (LoRA) configuration - Parameter-Efficient Fine-Tuning
+# This adds small trainable adapters to the model instead of updating all weights
+peft:
+  _target_: nemo_automodel.components._peft.lora.PeftConfig
+  match_all_linear: true    # Apply LoRA adapters to all linear layers
+  dim: 32                   # LoRA rank (higher = more parameters, better fit)
+  alpha: 64                 # LoRA scaling factor (alpha/rank = effective scaling)
+  use_triton: true          # Use Triton-optimized GPU kernels for LoRA operations
+
+# Optional: Weights & Biases logging (uncomment to enable)
+# wandb:
+#   project: logistics-sitrep-finetuning
+#   entity: <your_wandb_entity>
+#   name: nemotron-nano-3-sitrep-peft
+#   save_dir: outputs/logs/wandb

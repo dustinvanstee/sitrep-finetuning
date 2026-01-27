@@ -1,0 +1,30 @@
+{
+  "baseline": {
+    "num_sitreps": 1,
+    "mean_total": 0.0,
+    "mean_section_completeness": 0.0,
+    "mean_tldr_quality": 0.0,
+    "mean_markdown_formatting": 0.0,
+    "mean_structure_quality": 0.0,
+    "min_total": 0,
+    "max_total": 0
+  },
+  "finetuned": {
+    "num_sitreps": 1,
+    "mean_total": 0.0,
+    "mean_section_completeness": 0.0,
+    "mean_tldr_quality": 0.0,
+    "mean_markdown_formatting": 0.0,
+    "mean_structure_quality": 0.0,
+    "min_total": 0,
+    "max_total": 0
+  },
+  "improvement": {
+    "total_score_improvement": 0.0,
+    "total_score_improvement_pct": 0,
+    "section_completeness_improvement": 0.0,
+    "tldr_quality_improvement": 0.0,
+    "markdown_formatting_improvement": 0.0,
+    "structure_quality_improvement": 0.0
+  }
+}

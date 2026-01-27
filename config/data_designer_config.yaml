@@ -1,0 +1,100 @@
+# NVIDIA Data Designer Configuration for Logistics Sit Rep Generation
+
+data_designer:
+  base_url: ${NEMO_MICROSERVICES_BASE_URL}
+  api_key: ${NVIDIA_API_KEY}
+
+# Scenario definitions
+scenarios:
+  - name: "coastal_expansion"
+    description: "Expansion into coastal regions with port access"
+    days: 7
+    locations_per_day: 5
+    weather_patterns:
+      - "Clear"
+      - "Partly Cloudy"
+      - "Rain"
+      - "Stormy"
+    terrain_types:
+      - "Coastal Plain"
+      - "Beach"
+      - "Low Hills"
+
+  - name: "mountain_crisis"
+    description: "Emergency deployment in mountainous terrain"
+    days: 7
+    locations_per_day: 4
+    weather_patterns:
+      - "Clear"
+      - "Cloudy"
+      - "Snow"
+      - "Fog"
+    terrain_types:
+      - "Mountain"
+      - "Highland"
+      - "Valley"
+
+  - name: "urban_growth"
+    description: "Urban expansion into metropolitan areas"
+    days: 5
+    locations_per_day: 6
+    weather_patterns:
+      - "Clear"
+      - "Partly Cloudy"
+      - "Rain"
+      - "Overcast"
+    terrain_types:
+      - "Urban"
+      - "Suburban"
+      - "Industrial"
+
+# Sit rep generation settings
+sitrep_generation:
+  model: "meta/llama-3.1-70b-instruct"
+  temperature: 0.7
+  max_tokens: 8192
+  top_p: 0.9
+
+# Location generation parameters
+location_params:
+  # Coordinate ranges (lat, lon)
+  coastal_expansion:
+    lat_range: [30.0, 35.0]
+    lon_range: [-100.0, -85.0]
+  mountain_crisis:
+    lat_range: [38.0, 42.0]
+    lon_range: [-110.0, -100.0]
+  urban_growth:
+    lat_range: [33.0, 37.0]
+    lon_range: [-95.0, -88.0]
+
+  # Cost parameters (USD)
+  base_deployment_min: 50000
+  base_deployment_max: 150000
+  transport_cost_per_km: 100
+  labor_cost_range: [15, 35]  # per hour
+
+  # Risk scores (0-10)
+  political_stability_range: [4, 9]
+  disaster_risk_range: [2, 8]
+  supply_chain_risk_range: [3, 9]
+
+  # Market parameters
+  population_range: [50000, 500000]
+  demand_range: [1000, 10000]  # units per day
+  competitor_range: [1, 8]
+
+# Data generation settings
+generation:
+  random_seed: 42
+  num_train_scenarios: 3
+  num_validation_scenarios: 1
+  num_test_scenarios: 1
+  total_sitreps_target: 100  # minimum number of sit reps to generate
+
+# Output settings
+output:
+  raw_data_dir: "data/raw"
+  csv_filename_template: "logistics_data_{scenario}_day{day}.csv"
+  sitrep_filename_template: "sitrep_{scenario}_day{day}.md"
+  combined_filename_template: "logistics_data_{scenario}_complete.csv"

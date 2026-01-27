@@ -1,0 +1,36 @@
+location_id,location_name,latitude,longitude,terrain_type,elevation_m,weather_condition,temperature_c,wind_speed_kmh,precipitation_mm,distance_from_dc_km,road_quality,has_airport,has_seaport,has_rail_access,num_competitors,population_served,current_demand_units,demand_growth_projection_pct,market_saturation_pct,base_deployment_cost_usd,transportation_cost_per_unit_usd,labor_cost_per_hour_usd,facility_rental_monthly_usd,political_stability_score,natural_disaster_risk_score,supply_chain_risk_score,day_number,season
+LOC-0101,Alpha Base,31.87,-85.74,Low Hills,2195,Rain,32.6,21.1,0.3,319.4,Poor,False,False,False,2,53179,6085,-4.3,56.7,113889.63,36.94,23.0,22489.56,7.1,4.3,8.9,1,Spring
+LOC-0102,Bravo Station,30.23,-90.89,Beach,511,Partly Cloudy,18.7,13.9,4.7,79.3,Good,False,False,True,7,272829,6645,4.4,56.4,98037.32,12.93,25.93,12791.56,4.9,7.8,7.7,1,Summer
+LOC-0103,Charlie Point,31.98,-86.1,Coastal Plain,2181,Partly Cloudy,11.9,2.3,12.7,196.9,Good,False,False,True,4,183323,3923,-0.0,21.1,111504.33,24.69,23.47,9369.33,4.1,3.2,7.3,1,Fall
+LOC-0104,Delta Hub,33.86,-98.89,Beach,1075,Clear,13.6,13.6,0.9,102.1,Poor,False,False,True,7,302559,5653,20.5,70.5,105964.11,15.21,19.72,24188.81,5.3,2.2,7.3,1,Summer
+LOC-0105,Echo Terminal,30.13,-98.38,Beach,94,Clear,15.7,3.0,2.9,336.4,Poor,False,False,False,3,330959,6487,3.9,27.4,99578.47,38.64,24.13,20852.35,8.4,3.9,3.7,1,Spring
+LOC-0201,Alpha Base,31.59,-98.35,Coastal Plain,683,Rain,8.8,15.0,2.7,242.2,Excellent,False,False,True,6,159856,4033,11.7,48.3,111049.85,29.22,16.3,19301.72,5.3,3.5,7.2,2,Fall
+LOC-0202,Bravo Station,31.5,-95.73,Beach,110,Rain,23.8,12.9,0.7,324.3,Poor,False,False,True,4,86383,4157,6.1,37.0,103530.4,37.43,31.06,28561.6,6.0,6.9,7.8,2,Spring
+LOC-0203,Charlie Point,31.6,-97.2,Low Hills,122,Partly Cloudy,19.8,2.6,5.7,315.9,Poor,True,False,True,5,282988,5963,17.1,34.6,107810.18,36.59,25.83,34264.56,7.5,3.4,4.0,2,Winter
+LOC-0204,Delta Hub,32.78,-92.06,Coastal Plain,725,Stormy,8.5,24.5,18.0,91.9,Fair,False,False,False,7,432917,3265,23.1,75.0,101439.62,14.19,28.38,6501.97,8.7,7.8,4.7,2,Summer
+LOC-0205,Echo Terminal,32.74,-89.62,Coastal Plain,1955,Partly Cloudy,29.3,24.3,3.2,150.9,Poor,False,False,True,5,294143,9546,2.5,61.3,109642.12,20.09,34.58,26469.75,6.4,7.4,5.6,2,Spring
+LOC-0301,Alpha Base,32.51,-91.35,Low Hills,1477,Stormy,20.3,13.9,3.8,137.9,Excellent,False,False,True,6,187563,6480,0.7,38.8,108555.93,18.79,24.71,11585.97,8.2,7.6,3.4,3,Summer
+LOC-0302,Bravo Station,33.08,-85.15,Coastal Plain,420,Stormy,7.0,23.7,15.5,283.2,Poor,False,True,True,7,165293,3534,-4.8,64.0,117524.83,33.32,18.89,26953.46,4.4,4.4,3.3,3,Fall
+LOC-0303,Charlie Point,31.69,-94.37,Coastal Plain,281,Partly Cloudy,5.7,17.9,0.9,310.2,Poor,True,False,True,1,196993,5160,19.8,39.0,88832.61,36.02,34.31,37103.99,5.0,4.5,7.2,3,Winter
+LOC-0304,Delta Hub,33.63,-85.36,Low Hills,1548,Rain,18.8,8.7,3.9,195.3,Excellent,True,True,True,6,359824,1902,-2.2,32.8,115013.04,24.53,33.69,21568.71,7.2,5.1,6.9,3,Spring
+LOC-0305,Echo Terminal,33.06,-93.71,Coastal Plain,743,Clear,18.1,30.0,4.8,210.2,Fair,True,False,False,6,71626,3134,23.5,82.1,108448.77,26.02,20.22,56870.33,7.4,5.7,8.7,3,Summer
+LOC-0401,Alpha Base,30.13,-91.21,Coastal Plain,2820,Clear,20.7,18.8,9.7,309.0,Poor,True,False,False,3,138106,4027,4.6,79.1,124096.34,35.9,15.47,27075.98,8.1,3.7,3.7,4,Spring
+LOC-0402,Bravo Station,31.74,-85.95,Beach,117,Clear,26.0,19.9,4.8,238.1,Good,True,False,False,7,302840,5234,2.2,67.6,109977.57,28.81,29.8,18731.42,6.7,5.0,5.3,4,Spring
+LOC-0403,Charlie Point,34.48,-94.16,Low Hills,32,Stormy,9.3,30.3,15.7,457.4,Excellent,True,False,True,1,145727,8627,24.1,68.2,101062.19,50.74,31.74,29045.83,8.3,7.0,5.6,4,Winter
+LOC-0404,Delta Hub,30.36,-87.67,Low Hills,2118,Stormy,8.4,3.7,2.2,86.6,Excellent,True,False,True,1,198613,4573,8.0,37.8,84840.7,13.66,23.1,40901.58,7.8,6.9,7.5,4,Fall
+LOC-0405,Echo Terminal,32.92,-85.57,Beach,1124,Clear,23.8,15.6,14.8,178.6,Fair,False,True,False,7,83945,4056,3.8,89.7,114097.04,22.86,28.94,19438.19,5.9,6.4,8.5,4,Summer
+LOC-0501,Alpha Base,34.75,-86.65,Beach,1366,Stormy,28.3,0.5,14.1,329.1,Poor,False,True,True,2,84290,5724,23.2,49.2,106565.97,37.91,26.62,26420.5,4.8,4.5,7.7,5,Summer
+LOC-0502,Bravo Station,34.94,-97.74,Low Hills,1782,Clear,28.3,14.1,17.4,221.4,Fair,True,True,True,7,361271,8277,22.4,61.0,124960.09,27.14,29.52,27252.35,7.8,4.3,4.4,5,Spring
+LOC-0503,Charlie Point,30.65,-85.69,Beach,1818,Stormy,-7.8,12.9,0.2,152.9,Excellent,False,False,False,5,231567,6785,-1.0,22.0,108468.93,20.29,30.1,39890.45,5.1,2.8,3.1,5,Summer
+LOC-0504,Delta Hub,33.04,-90.45,Coastal Plain,1664,Partly Cloudy,27.0,21.9,4.0,91.0,Good,False,False,False,6,116183,4970,2.7,52.1,105735.09,14.1,34.6,32964.05,6.5,4.0,6.8,5,Winter
+LOC-0505,Echo Terminal,31.71,-91.94,Coastal Plain,1380,Rain,20.3,23.6,5.8,313.1,Fair,True,True,True,3,129654,5705,-2.3,28.4,110114.47,36.31,24.22,19463.51,6.5,6.1,3.2,5,Spring
+LOC-0601,Alpha Base,32.41,-89.68,Coastal Plain,1534,Partly Cloudy,10.4,16.4,5.4,120.6,Fair,True,False,False,3,216011,8289,-3.9,37.7,92404.0,17.06,29.27,22509.64,8.5,5.1,6.2,6,Spring
+LOC-0602,Bravo Station,34.34,-94.69,Beach,1191,Rain,11.5,9.8,2.7,97.2,Excellent,True,False,True,6,341970,4298,9.4,60.9,101629.11,14.72,29.74,45844.77,6.8,4.3,5.0,6,Winter
+LOC-0603,Charlie Point,33.23,-91.44,Coastal Plain,1068,Clear,31.1,9.8,0.1,493.9,Fair,True,False,True,5,429041,5347,22.5,20.4,135073.19,54.39,34.5,34078.72,6.5,6.3,7.9,6,Summer
+LOC-0604,Delta Hub,32.78,-91.43,Beach,839,Stormy,22.2,6.9,0.4,396.3,Good,False,True,True,2,469406,4386,4.6,61.6,108017.18,44.63,22.38,45670.44,6.7,3.2,7.1,6,Winter
+LOC-0605,Echo Terminal,31.27,-89.78,Low Hills,2280,Rain,4.4,19.6,3.0,318.0,Good,False,False,False,4,495918,3983,22.8,70.5,124603.74,36.8,15.96,12581.59,7.9,7.0,7.5,6,Winter
+LOC-0701,Alpha Base,30.82,-97.54,Coastal Plain,2443,Clear,33.7,21.6,22.7,349.3,Poor,False,False,False,4,276224,4203,2.0,83.0,129363.87,39.93,22.68,33924.11,7.1,2.7,8.6,7,Fall
+LOC-0702,Bravo Station,33.65,-89.59,Beach,500,Rain,20.8,21.6,15.1,445.4,Fair,False,True,True,4,393106,4304,19.6,27.7,119538.31,49.54,31.93,33291.39,4.6,4.4,7.8,7,Spring
+LOC-0703,Charlie Point,32.43,-93.87,Beach,2315,Rain,29.5,17.9,3.9,55.5,Good,False,False,False,5,119008,5652,12.6,55.4,103699.14,10.55,27.23,26093.95,7.5,7.5,7.2,7,Summer
+LOC-0704,Delta Hub,33.86,-94.38,Coastal Plain,206,Partly Cloudy,25.8,10.0,0.0,84.8,Poor,True,False,False,1,283477,1615,-3.4,43.5,65539.45,13.48,31.06,40295.5,4.0,4.0,5.4,7,Spring
+LOC-0705,Echo Terminal,34.32,-86.16,Low Hills,1397,Rain,11.0,13.8,4.9,266.4,Good,True,False,False,7,174914,2361,1.6,34.9,125607.66,31.64,25.3,24629.64,6.8,7.2,6.2,7,Winter

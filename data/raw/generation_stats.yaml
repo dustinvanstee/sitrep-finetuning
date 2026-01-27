@@ -1,0 +1,10 @@
+scenarios:
+  coastal_expansion:
+    days: 7
+    locations_generated: 35
+    sitreps_generated: 7
+    success: true
+total_days: 7
+total_locations: 35
+total_scenarios: 1
+total_sitreps: 7

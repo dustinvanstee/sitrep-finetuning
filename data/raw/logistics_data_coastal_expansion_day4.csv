@@ -1,0 +1,6 @@
+location_id,location_name,latitude,longitude,terrain_type,elevation_m,weather_condition,temperature_c,wind_speed_kmh,precipitation_mm,distance_from_dc_km,road_quality,has_airport,has_seaport,has_rail_access,num_competitors,population_served,current_demand_units,demand_growth_projection_pct,market_saturation_pct,base_deployment_cost_usd,transportation_cost_per_unit_usd,labor_cost_per_hour_usd,facility_rental_monthly_usd,political_stability_score,natural_disaster_risk_score,supply_chain_risk_score,day_number,season
+LOC-0401,Alpha Base,30.13,-91.21,Coastal Plain,2820,Clear,20.7,18.8,9.7,309.0,Poor,True,False,False,3,138106,4027,4.6,79.1,124096.34,35.9,15.47,27075.98,8.1,3.7,3.7,4,Spring
+LOC-0402,Bravo Station,31.74,-85.95,Beach,117,Clear,26.0,19.9,4.8,238.1,Good,True,False,False,7,302840,5234,2.2,67.6,109977.57,28.81,29.8,18731.42,6.7,5.0,5.3,4,Spring
+LOC-0403,Charlie Point,34.48,-94.16,Low Hills,32,Stormy,9.3,30.3,15.7,457.4,Excellent,True,False,True,1,145727,8627,24.1,68.2,101062.19,50.74,31.74,29045.83,8.3,7.0,5.6,4,Winter
+LOC-0404,Delta Hub,30.36,-87.67,Low Hills,2118,Stormy,8.4,3.7,2.2,86.6,Excellent,True,False,True,1,198613,4573,8.0,37.8,84840.7,13.66,23.1,40901.58,7.8,6.9,7.5,4,Fall
+LOC-0405,Echo Terminal,32.92,-85.57,Beach,1124,Clear,23.8,15.6,14.8,178.6,Fair,False,True,False,7,83945,4056,3.8,89.7,114097.04,22.86,28.94,19438.19,5.9,6.4,8.5,4,Summer

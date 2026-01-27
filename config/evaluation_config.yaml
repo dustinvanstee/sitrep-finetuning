@@ -1,0 +1,117 @@
+# Evaluation Configuration for Sit Rep Quality Assessment
+
+# Model paths
+models:
+  baseline:
+    name: "nemotron-mini-4b-instruct-baseline"
+    path: "nvidia/Nemotron-Mini-4B-Instruct"
+    type: "pretrained"
+
+  finetuned:
+    name: "nemotron-mini-4b-instruct-finetuned"
+    path: "checkpoints/LOWEST_VAL/model"
+    type: "finetuned"
+
+# Test data
+test_data:
+  path: "data/processed/val.jsonl"
+  num_samples: null  # null means use all test samples
+
+# Generation parameters
+generation:
+  max_new_tokens: 4096
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  do_sample: true
+  repetition_penalty: 1.1
+
+# Formatting metrics weights (total = 100)
+metrics:
+  section_completeness:
+    weight: 40
+    components:
+      has_title: 5
+      has_tldr_section: 10
+      has_executive_summary: 5
+      has_location_analysis: 5
+      has_comparative_analysis: 5
+      has_recommendations: 5
+      has_action_items: 5
+
+  tldr_quality:
+    weight: 20
+    components:
+      has_recommendation: 7
+      has_insight: 7
+      has_citations: 6
+
+  markdown_formatting:
+    weight: 20
+    components:
+      header_usage: 5
+      bold_italic: 3
+      tables: 3
+      checkboxes: 3
+      bullet_points: 3
+      links: 3
+
+  structure_quality:
+    weight: 20
+    components:
+      single_h1_header: 5
+      min_h2_headers: 10  # Requires 5+ H2 headers
+      min_h3_headers: 5   # Requires 3+ H3 headers
+
+# Quality thresholds
+thresholds:
+  minimum_viable:
+    total_score: 60
+    section_completeness: 30
+    tldr_quality: 12
+
+  production_ready:
+    total_score: 80
+    section_completeness: 36
+    tldr_quality: 16
+
+# Content metrics (optional)
+content_metrics:
+  enabled: true
+  rouge:
+    enabled: true
+    types: ["rouge1", "rouge2", "rougeL"]
+
+  bert_score:
+    enabled: false  # Resource intensive
+    model: "microsoft/deberta-xlarge-mnli"
+
+# Output settings
+output:
+  save_dir: "outputs/evaluation_results"
+  save_generated_sitreps: true
+  save_metrics_csv: true
+  save_comparison_report: true
+  save_visualizations: true
+
+# Visualization settings
+visualization:
+  create_comparison_plots: true
+  create_metric_heatmaps: true
+  create_score_distributions: true
+  plot_format: "png"
+  dpi: 300
+
+# Reporting
+report:
+  format: "markdown"
+  include_examples: true
+  num_examples_per_category: 3  # best, median, worst
+  include_failure_analysis: true
+  include_statistical_tests: true
+
+# Parallel processing
+processing:
+  batch_size: 4
+  num_workers: 2
+  device: "cuda"  # cuda or cpu (use cpu for local Mac evaluation)
