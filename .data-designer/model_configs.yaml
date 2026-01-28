@@ -1,0 +1,10 @@
+# Data Designer Model Configurations
+# Local Nemotron-3 NIM
+
+models:
+  - alias: intel-gen
+    model: nvidia/nemotron-3-nano
+    provider: local-nim
+    inference_parameters:
+      temperature: 0.8
+      max_tokens: 4096

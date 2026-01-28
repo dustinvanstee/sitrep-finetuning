@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "260211z",
+  "secondary_event_dtg": "260327z",
+  "adversary_unit": "People's Liberation Army Navy East Sea Fleet",
+  "adversary_vessel_count": 6,
+  "adversary_aircraft_count": 12,
+  "adversary_formation_location": "15nm east of the Matsu Islands",
+  "adversary_grid_ref": "25.5\u00b0N 122.3\u00b0E",
+  "adversary_activity": "maintaining a defensive patrol formation with surface ships and surveillance aircraft",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 88,
+  "friendly_munitions_status": "95% stockpiles; 5% shortfall in precision-guided munitions",
+  "friendly_personnel_count": 8500,
+  "partner_nation": "Japan",
+  "weather_visibility": "GOOD",
+  "sea_state": 3,
+  "threat_level": "HIGH",
+  "confidence_level": "HIGH",
+  "primary_assessment": "Elevated tensions persist as PLAN conducts presence operations near the Taiwan Strait, with no missile launches detected."
+}

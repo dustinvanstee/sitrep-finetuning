@@ -1,0 +1,24 @@
+{
+  "scenario_id": "scenario_003_south_china_sea_standoff",
+  "scenario_type": "south_china_sea_standoff",
+  "scenario_description": "Naval standoff near disputed islands",
+  "theater_location": "South China Sea - Paracel Islands",
+  "escalation_level": "HIGH",
+  "reporting_unit": "MARFORPAC",
+  "dtg": "031137Z JAN 26",
+  "reporting_period": "021137Z\u2013031137Z",
+  "num_input_reports": 11,
+  "input_files": [
+    "01_flash_1.md",
+    "02_flash_2.md",
+    "03_flash_3.md",
+    "04_isr_1.md",
+    "05_isr_2.md",
+    "06_sensor_1.md",
+    "07_air_track.md",
+    "08_friendly_force.md",
+    "09_metoc.md",
+    "10_osint.md",
+    "11_narrative.md"
+  ]
+}

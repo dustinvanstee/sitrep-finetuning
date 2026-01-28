@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "060830Z",
+  "secondary_event_dtg": "061145Z",
+  "adversary_unit": "Korean People's Navy - West Sea Fleet",
+  "adversary_vessel_count": 8,
+  "adversary_aircraft_count": 4,
+  "adversary_formation_location": "10nm west of Baengnyeong Island",
+  "adversary_grid_ref": "37.7\u00b0N 124.8\u00b0E",
+  "adversary_activity": "conducted live-fire drills and fired short-range missiles",
+  "missile_type": "cruise",
+  "missile_count": 2,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 92,
+  "friendly_munitions_status": "96% stockpiles; 4% shortfall in anti-ship missiles",
+  "friendly_personnel_count": 8500,
+  "partner_nation": "Japan",
+  "weather_visibility": "GOOD",
+  "sea_state": 3,
+  "threat_level": "HIGH",
+  "confidence_level": "HIGH",
+  "primary_assessment": "Heightened naval confrontation persists with intermittent missile launches, maintaining a high threat posture."
+}

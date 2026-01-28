@@ -1,0 +1,28 @@
+{
+  "scenario_id": "scenario_017_korean_peninsula_tension",
+  "scenario_type": "korean_peninsula_tension",
+  "scenario_description": "Elevated tension on Korean peninsula",
+  "theater_location": "Philippine Sea",
+  "escalation_level": "LOW",
+  "reporting_unit": "MARFORPAC",
+  "dtg": "011204Z JAN 26",
+  "reporting_period": "311204Z\u2013011204Z",
+  "num_input_reports": 15,
+  "input_files": [
+    "01_flash_1.md",
+    "02_flash_2.md",
+    "03_missile_warning.md",
+    "04_isr_1.md",
+    "05_sensor_1.md",
+    "06_sensor_2.md",
+    "07_sensor_3.md",
+    "08_sensor_4.md",
+    "09_air_track.md",
+    "10_cyber_ew.md",
+    "11_friendly_force.md",
+    "12_partner.md",
+    "13_metoc.md",
+    "14_osint.md",
+    "15_narrative.md"
+  ]
+}

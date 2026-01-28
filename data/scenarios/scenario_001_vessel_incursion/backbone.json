@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "161001Z",
+  "secondary_event_dtg": "161001Z",
+  "adversary_unit": "PLA Navy East Sea Fleet",
+  "adversary_vessel_count": 8,
+  "adversary_aircraft_count": 12,
+  "adversary_formation_location": "15nm east of South China Sea - Paracel Islands",
+  "adversary_grid_ref": "25.0\u00b0N 122.0\u00b0E",
+  "adversary_activity": "conducting coordinated maritime operations",
+  "missile_type": "MRBM",
+  "missile_count": 4,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 95,
+  "friendly_munitions_status": "98% stockpiles; 2% shortfall in PGMs",
+  "friendly_personnel_count": 15000,
+  "partner_nation": "Japan",
+  "weather_visibility": "FAIR",
+  "sea_state": 3,
+  "threat_level": "MEDIUM",
+  "confidence_level": "MEDIUM",
+  "primary_assessment": "Adversary activity elevated; monitoring recommended"
+}

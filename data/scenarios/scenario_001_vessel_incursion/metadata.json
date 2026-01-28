@@ -1,0 +1,24 @@
+{
+  "scenario_id": "scenario_001_vessel_incursion",
+  "scenario_type": "vessel_incursion",
+  "scenario_description": "Single vessel territorial incursion",
+  "theater_location": "South China Sea - Paracel Islands",
+  "escalation_level": "LOW",
+  "reporting_unit": "III MEF",
+  "dtg": "161001Z JAN 26",
+  "reporting_period": "151001Z\u2013161001Z",
+  "num_input_reports": 11,
+  "input_files": [
+    "01_flash_1.md",
+    "02_missile_warning.md",
+    "03_isr_1.md",
+    "04_isr_2.md",
+    "05_sensor_1.md",
+    "06_air_track.md",
+    "07_cyber_ew.md",
+    "08_friendly_force.md",
+    "09_metoc.md",
+    "10_osint.md",
+    "11_narrative.md"
+  ]
+}

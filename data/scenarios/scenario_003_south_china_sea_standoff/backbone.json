@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "031137z",
+  "secondary_event_dtg": "031205z",
+  "adversary_unit": "PLA Navy South China Sea Fleet",
+  "adversary_vessel_count": 6,
+  "adversary_aircraft_count": 12,
+  "adversary_formation_location": "15nm southeast of Mischief Reef, Paracel Islands",
+  "adversary_grid_ref": "17.5\u00b0N 111.5\u00b0E",
+  "adversary_activity": "Conducting presence patrol with aggressive maneuvering and radio signaling",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 86,
+  "friendly_munitions_status": "95% stockpiles; 5% shortfall in anti-ship missiles",
+  "friendly_personnel_count": 4700,
+  "partner_nation": "Philippines",
+  "weather_visibility": "GOOD",
+  "sea_state": 2,
+  "threat_level": "HIGH",
+  "confidence_level": "HIGH",
+  "primary_assessment": "Hostile naval presence near the Paracel Islands escalated with aggressive maneuvers; no kinetic engagements reported."
+}

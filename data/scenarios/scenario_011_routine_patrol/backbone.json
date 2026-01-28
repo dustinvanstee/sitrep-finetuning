@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "301153z",
+  "secondary_event_dtg": "310120z",
+  "adversary_unit": "PLA Navy East Sea Fleet Surface Action Group",
+  "adversary_vessel_count": 3,
+  "adversary_aircraft_count": 2,
+  "adversary_formation_location": "15nm east of the Pratas Islands",
+  "adversary_grid_ref": "25.5\u00b0N 122.3\u00b0E",
+  "adversary_activity": "Coordinated anti-submarine sweeps",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "PACFLT ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 85,
+  "friendly_munitions_status": "96% stockpiles; 4% shortfall in PGMs",
+  "friendly_personnel_count": 8500,
+  "partner_nation": "Japan",
+  "weather_visibility": "GOOD",
+  "sea_state": 2,
+  "threat_level": "MEDIUM",
+  "confidence_level": "MEDIUM",
+  "primary_assessment": "Routine patrol activity observed; no hostile actions detected."
+}

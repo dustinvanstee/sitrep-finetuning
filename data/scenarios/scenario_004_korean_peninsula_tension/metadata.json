@@ -1,0 +1,28 @@
+{
+  "scenario_id": "scenario_004_korean_peninsula_tension",
+  "scenario_type": "korean_peninsula_tension",
+  "scenario_description": "Elevated tension on Korean peninsula",
+  "theater_location": "East China Sea - Senkaku Islands",
+  "escalation_level": "MODERATE",
+  "reporting_unit": "CTF 76",
+  "dtg": "261139Z JAN 26",
+  "reporting_period": "251139Z\u2013261139Z",
+  "num_input_reports": 15,
+  "input_files": [
+    "01_flash_1.md",
+    "02_flash_2.md",
+    "03_missile_warning.md",
+    "04_isr_1.md",
+    "05_isr_2.md",
+    "06_isr_3.md",
+    "07_sensor_1.md",
+    "08_sensor_2.md",
+    "09_sensor_3.md",
+    "10_air_track.md",
+    "11_cyber_ew.md",
+    "12_friendly_force.md",
+    "13_partner.md",
+    "14_metoc.md",
+    "15_osint.md"
+  ]
+}

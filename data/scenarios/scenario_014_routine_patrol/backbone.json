@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "181159z",
+  "secondary_event_dtg": "190500z",
+  "adversary_unit": "PLA Navy South Sea Fleet",
+  "adversary_vessel_count": 3,
+  "adversary_aircraft_count": 0,
+  "adversary_formation_location": "Patrolling near the western Paracel Islands",
+  "adversary_grid_ref": "16.8\u00b0N 111.2\u00b0E",
+  "adversary_activity": "Maintaining a continuous presence, shadowing friendly vessels, conducting low-level navigation",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "CTF-70",
+  "friendly_air_wing": "CVW-2",
+  "friendly_readiness_pct": 92,
+  "friendly_munitions_status": "95% stockpiles; minor shortfall in anti-ship missiles",
+  "friendly_personnel_count": 4500,
+  "partner_nation": "Japan",
+  "weather_visibility": "GOOD",
+  "sea_state": 3,
+  "threat_level": "CRITICAL",
+  "confidence_level": "HIGH",
+  "primary_assessment": "Adversary maintains routine patrol near the Paracel Islands with no overt escalation; however, heightened presence triggers a CRITICAL threat assessment."
+}

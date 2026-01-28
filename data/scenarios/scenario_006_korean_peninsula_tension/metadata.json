@@ -1,0 +1,23 @@
+{
+  "scenario_id": "scenario_006_korean_peninsula_tension",
+  "scenario_type": "korean_peninsula_tension",
+  "scenario_description": "Elevated tension on Korean peninsula",
+  "theater_location": "Taiwan Strait",
+  "escalation_level": "ELEVATED",
+  "reporting_unit": "CTF 76",
+  "dtg": "021142Z JAN 26",
+  "reporting_period": "011142Z\u2013021142Z",
+  "num_input_reports": 10,
+  "input_files": [
+    "01_flash_1.md",
+    "02_isr_1.md",
+    "03_isr_2.md",
+    "04_sensor_1.md",
+    "05_sensor_2.md",
+    "06_air_track.md",
+    "07_friendly_force.md",
+    "08_metoc.md",
+    "09_osint.md",
+    "10_narrative.md"
+  ]
+}

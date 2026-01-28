@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "231155z",
+  "secondary_event_dtg": "240210z",
+  "adversary_unit": "PLA Navy East Sea Fleet",
+  "adversary_vessel_count": 4,
+  "adversary_aircraft_count": 6,
+  "adversary_formation_location": "15nm east of Senkaku Islands",
+  "adversary_grid_ref": "25.8\u00b0N 122.1\u00b0E",
+  "adversary_activity": "Shadowing CTF-76 vessels and conducting freedom of navigation operations",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "CTF-76",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 88,
+  "friendly_munitions_status": "95% stockpiles; 5% shortfall in precision guided munitions",
+  "friendly_personnel_count": 3500,
+  "partner_nation": "Japan",
+  "weather_visibility": "GOOD",
+  "sea_state": 3,
+  "threat_level": "MEDIUM",
+  "confidence_level": "HIGH",
+  "primary_assessment": "Moderate escalation with PLAN vessels shadowing CTF-76; no kinetic engagements."
+}

@@ -1,0 +1,11 @@
+# Data Designer Model Providers Configuration
+# Local NIM setup for INDOPACOM SITREP generation
+
+default: local-nim
+
+providers:
+  local-nim:
+    name: local-nim
+    endpoint: http://localhost:8000/v1
+    provider_type: openai
+    api_key: not-needed

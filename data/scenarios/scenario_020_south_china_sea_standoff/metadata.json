@@ -1,0 +1,25 @@
+{
+  "scenario_id": "scenario_020_south_china_sea_standoff",
+  "scenario_type": "south_china_sea_standoff",
+  "scenario_description": "Naval standoff near disputed islands",
+  "theater_location": "Korean Peninsula - West Sea",
+  "escalation_level": "HIGH",
+  "reporting_unit": "PACFLT",
+  "dtg": "061209Z JAN 26",
+  "reporting_period": "051209Z\u2013061209Z",
+  "num_input_reports": 12,
+  "input_files": [
+    "01_flash_1.md",
+    "02_flash_2.md",
+    "03_missile_warning.md",
+    "04_isr_1.md",
+    "05_sensor_1.md",
+    "06_sensor_2.md",
+    "07_air_track.md",
+    "08_cyber_ew.md",
+    "09_friendly_force.md",
+    "10_partner.md",
+    "11_metoc.md",
+    "12_osint.md"
+  ]
+}

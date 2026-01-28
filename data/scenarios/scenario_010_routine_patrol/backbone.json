@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "271152z",
+  "secondary_event_dtg": "280300z",
+  "adversary_unit": "PLA Navy East Sea Fleet",
+  "adversary_vessel_count": 3,
+  "adversary_aircraft_count": 2,
+  "adversary_formation_location": "10nm west of Fiery Cross Reef",
+  "adversary_grid_ref": "15.8\u00b0N 119.3\u00b0E",
+  "adversary_activity": "Patrolling and shadowing civilian vessels",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-1",
+  "friendly_readiness_pct": 88,
+  "friendly_munitions_status": "95% stockpiles; 3% shortfall in PGMs",
+  "friendly_personnel_count": 8500,
+  "partner_nation": "Philippines",
+  "weather_visibility": "GOOD",
+  "sea_state": 2,
+  "threat_level": "HIGH",
+  "confidence_level": "HIGH",
+  "primary_assessment": "Routine patrol observed heightened PLAN presence near Fiery Cross Reef but no aggressive maneuvers; situation remains stable."
+}

@@ -1,0 +1,7 @@
+# Environment
+.env
+.venv/
+
+# Local directories
+DataDesigner/
+scripts/sdg_samples/

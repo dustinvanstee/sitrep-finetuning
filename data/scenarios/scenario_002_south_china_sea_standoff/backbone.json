@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "211135Z",
+  "secondary_event_dtg": "201135Z",
+  "adversary_unit": "PLA Navy South Sea Fleet",
+  "adversary_vessel_count": 4,
+  "adversary_aircraft_count": 6,
+  "adversary_formation_location": "5nm east of Central Paracel Islands",
+  "adversary_grid_ref": "17.5\u00b0N 111.2\u00b0E",
+  "adversary_activity": "Conducting patrols and escorting oil tankers",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 92,
+  "friendly_munitions_status": "98% stockpiles; 2% shortfall in PGMs",
+  "friendly_personnel_count": 7500,
+  "partner_nation": "Philippines",
+  "weather_visibility": "GOOD",
+  "sea_state": 2,
+  "threat_level": "MEDIUM",
+  "confidence_level": "HIGH",
+  "primary_assessment": "Moderate tension persists with no casualties reported."
+}

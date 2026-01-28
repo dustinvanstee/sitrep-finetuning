@@ -1,0 +1,80 @@
+---
+description: Educational guide for understanding this NeMo Automodel fine-tuning codebase
+alwaysApply: true
+---
+
+# NeMo Automodel Codebase Explainer
+
+When explaining code in this repository, provide educational context about how it fits into the broader NeMo Automodel fine-tuning workflow.
+
+## Project Architecture Overview
+
+This project fine-tunes NVIDIA Nemotron-Mini-4B-Instruct to generate logistics situation reports. The pipeline has 4 stages:
+
+1. **Data Generation** (`scripts/1_generate_synthetic_data.py`, `src/data_generation/`)
+   - Uses NVIDIA API (Llama 3.1 70B) to generate synthetic training data
+   - Produces markdown sit reps from random logistics scenarios
+
+2. **Data Preparation** (`scripts/2_prepare_training_data.py`, `src/training/`)
+   - Converts markdown sit reps to JSONL format
+   - Creates input/output pairs for instruction tuning
+
+3. **Training** (`config/automodel_training_config.yaml`, `scripts/run_training_remote.sh`)
+   - Uses NeMo Automodel framework in Docker container
+   - Applies LoRA (Low-Rank Adaptation) for parameter-efficient fine-tuning
+   - Runs on remote GPU server
+
+4. **Evaluation** (`scripts/4_evaluate_model.py`, `src/evaluation/`)
+   - Compares baseline vs fine-tuned model outputs
+   - Scores formatting quality
+
+## Key Concepts to Explain
+
+### NeMo Automodel
+- Recipe-based training system from NVIDIA
+- Uses YAML configs instead of Python code for training setup
+- Runs in Docker container with pre-optimized GPU libraries
+- Container: `nvcr.io/nvidian/nemo-automodel:26.02.rc0`
+
+### LoRA (Low-Rank Adaptation)
+- Trains small "adapter" weights instead of full model
+- Config in `config/automodel_training_config.yaml` under `peft:`
+- rank=32, alpha=64 means ~25M trainable params out of 4B
+- Saves 88MB adapter vs 8GB full model
+
+### YAML Config Structure
+Key sections in `automodel_training_config.yaml`:
+- `model:` - Base model path, `force_hf: true` is critical
+- `peft:` - LoRA rank, alpha, which layers to adapt
+- `step_scheduler:` - Batch size, steps, checkpoint frequency
+- `dataset:` - JSONL path, column mapping, loss masking
+- `optimizer:` - Learning rate, scheduler settings
+
+### Chat Template
+Nemotron uses special tokens: `<extra_id_1>User\n...\n<extra_id_1>Assistant\n`
+The `ColumnMappedTextInstructionDataset` auto-applies this during training.
+Inference code must also apply it (see `src/evaluation/inference_utils.py`).
+
+## When Explaining Files
+
+**For Python files:**
+- Explain the function's role in the pipeline
+- Note any NVIDIA-specific patterns (API calls, model loading)
+- Highlight HuggingFace/PEFT integration points
+
+**For YAML configs:**
+- Explain what each `_target_:` directive instantiates
+- Clarify the relationship between parameters (e.g., global_batch_size / local_batch_size = gradient accumulation steps)
+- Note any critical flags like `force_hf: true`
+
+**For shell scripts:**
+- Explain Docker mount flags and their purpose
+- Clarify GPU selection and memory settings
+
+## Common Questions to Address
+
+- "How does training actually run?" → Explain Docker container, mounted workspace, recipe execution
+- "What is LoRA doing?" → Low-rank matrices injected into attention layers
+- "Why JSONL format?" → NeMo's ColumnMappedTextInstructionDataset expects it
+- "What's the chat template for?" → Model expects specific token structure
+- "How do I modify training?" → Edit YAML config, not Python code

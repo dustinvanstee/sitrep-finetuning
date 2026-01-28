@@ -1,0 +1,22 @@
+{
+  "scenario_id": "scenario_011_routine_patrol",
+  "scenario_type": "routine_patrol",
+  "scenario_description": "Routine patrol operations with minor activity",
+  "theater_location": "Taiwan Strait",
+  "escalation_level": "MODERATE",
+  "reporting_unit": "PACFLT",
+  "dtg": "311153Z DEC 25",
+  "reporting_period": "301153Z\u2013311153Z",
+  "num_input_reports": 9,
+  "input_files": [
+    "01_flash_1.md",
+    "02_flash_2.md",
+    "03_isr_1.md",
+    "04_sensor_1.md",
+    "05_air_track.md",
+    "06_friendly_force.md",
+    "07_metoc.md",
+    "08_osint.md",
+    "09_narrative.md"
+  ]
+}

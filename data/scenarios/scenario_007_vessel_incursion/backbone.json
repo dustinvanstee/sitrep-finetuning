@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "281144z",
+  "secondary_event_dtg": "290915z",
+  "adversary_unit": "KP Navy 1st Surface Fleet",
+  "adversary_vessel_count": 1,
+  "adversary_aircraft_count": 0,
+  "adversary_formation_location": "15nm west of Baengnyong Island, Korean Peninsula",
+  "adversary_grid_ref": "37.5\u00b0N 124.7\u00b0E",
+  "adversary_activity": "Slow maneuvering incursion toward the Northern Limit Line",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 85,
+  "friendly_munitions_status": "98% stockpiles; 2% shortfall in PGMs",
+  "friendly_personnel_count": 9000,
+  "partner_nation": "South Korea",
+  "weather_visibility": "GOOD",
+  "sea_state": 2,
+  "threat_level": "LOW",
+  "confidence_level": "HIGH",
+  "primary_assessment": "A single North Korean patrol craft entered the West Sea sector, prompting a monitoring response."
+}

@@ -1,0 +1,23 @@
+{
+  "scenario_id": "scenario_014_routine_patrol",
+  "scenario_type": "routine_patrol",
+  "scenario_description": "Routine patrol operations with minor activity",
+  "theater_location": "South China Sea - Paracel Islands",
+  "escalation_level": "CRITICAL",
+  "reporting_unit": "CTF 70",
+  "dtg": "191159Z JAN 26",
+  "reporting_period": "181159Z\u2013191159Z",
+  "num_input_reports": 10,
+  "input_files": [
+    "01_flash_1.md",
+    "02_flash_2.md",
+    "03_flash_3.md",
+    "04_isr_1.md",
+    "05_sensor_1.md",
+    "06_air_track.md",
+    "07_cyber_ew.md",
+    "08_friendly_force.md",
+    "09_metoc.md",
+    "10_osint.md"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "311204Z",
+  "secondary_event_dtg": "010930Z",
+  "adversary_unit": "Korean People's Navy 1st Surface Combatant Flotilla",
+  "adversary_vessel_count": 4,
+  "adversary_aircraft_count": 6,
+  "adversary_formation_location": "30nm west of Okinawa Island",
+  "adversary_grid_ref": "22.0\u00b0N 126.0\u00b0E",
+  "adversary_activity": "Conducting coordinated maritime interdiction patrol; shadowing USNS Rappahannock",
+  "missile_type": "cruise",
+  "missile_count": 2,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 88,
+  "friendly_munitions_status": "95% stockpiles; 5% shortfall in PGMs",
+  "friendly_personnel_count": 4500,
+  "partner_nation": "Japan",
+  "weather_visibility": "GOOD",
+  "sea_state": 2,
+  "threat_level": "LOW",
+  "confidence_level": "MEDIUM",
+  "primary_assessment": "Adversary naval forces remain active in the Philippine Sea, but no direct hostilities reported; tensions persist."
+}

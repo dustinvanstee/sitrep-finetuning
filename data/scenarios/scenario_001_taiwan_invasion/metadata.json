@@ -1,0 +1,31 @@
+{
+  "scenario_id": "scenario_001_taiwan_invasion",
+  "scenario_type": "taiwan_invasion",
+  "scenario_description": "Full-scale amphibious invasion of Taiwan",
+  "theater_location": "East China Sea - Senkaku Islands",
+  "escalation_level": "MODERATE",
+  "reporting_unit": "7th Fleet",
+  "dtg": "200914Z JAN 26",
+  "reporting_period": "190914Z\u2013200914Z",
+  "num_input_reports": 18,
+  "input_files": [
+    "01_flash_1.md",
+    "02_flash_2.md",
+    "03_missile_warning.md",
+    "04_isr_1.md",
+    "05_isr_2.md",
+    "06_sensor_1.md",
+    "07_sensor_2.md",
+    "08_sensor_3.md",
+    "09_sensor_4.md",
+    "10_sensor_5.md",
+    "11_sensor_6.md",
+    "12_air_track.md",
+    "13_cyber_ew.md",
+    "14_friendly_force.md",
+    "15_partner.md",
+    "16_metoc.md",
+    "17_osint.md",
+    "18_narrative.md"
+  ]
+}

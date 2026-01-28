@@ -1,0 +1,23 @@
+{
+  "primary_event_dtg": "201133z",
+  "secondary_event_dtg": "211133z",
+  "adversary_unit": "PLA Navy East Sea Fleet",
+  "adversary_vessel_count": 4,
+  "adversary_aircraft_count": 6,
+  "adversary_formation_location": "10nm east of the Northern Limit Line, West Sea",
+  "adversary_grid_ref": "34.7\u00b0N 126.5\u00b0E",
+  "adversary_activity": "Patrol and reconnaissance of ROK naval assets",
+  "missile_type": "none",
+  "missile_count": 0,
+  "friendly_arg_name": "ARG-71",
+  "friendly_air_wing": "CVW-5",
+  "friendly_readiness_pct": 85,
+  "friendly_munitions_status": "95% stockpiles; 3% shortfall in PGMs",
+  "friendly_personnel_count": 12000,
+  "partner_nation": "Japan",
+  "weather_visibility": "GOOD",
+  "sea_state": 3,
+  "threat_level": "MEDIUM",
+  "confidence_level": "MEDIUM",
+  "primary_assessment": "A moderate naval standoff persists between PLAN and ROK/US forces near disputed waters, with no immediate escalation but heightened alertness."
+}

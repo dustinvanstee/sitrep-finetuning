@@ -1,0 +1,21 @@
+{
+  "scenario_id": "scenario_010_routine_patrol",
+  "scenario_type": "routine_patrol",
+  "scenario_description": "Routine patrol operations with minor activity",
+  "theater_location": "South China Sea - Spratly Islands",
+  "escalation_level": "HIGH",
+  "reporting_unit": "PACFLT",
+  "dtg": "281152Z JAN 26",
+  "reporting_period": "271152Z\u2013281152Z",
+  "num_input_reports": 8,
+  "input_files": [
+    "01_flash_1.md",
+    "02_isr_1.md",
+    "03_sensor_1.md",
+    "04_air_track.md",
+    "05_friendly_force.md",
+    "06_metoc.md",
+    "07_osint.md",
+    "08_narrative.md"
+  ]
+}
