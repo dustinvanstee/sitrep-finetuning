@@ -1,12 +1,12 @@
-# Logistics Sit Rep Fine-Tuning with NeMo Automodel
+# INDOPACOM SITREP Fine-Tuning with NeMo Automodel
 
-Fine-tune NVIDIA Nemotron-Mini-4B-Instruct to generate well-formatted logistics situation reports using NeMo Automodel framework.
+Fine-tune NVIDIA Nemotron-Mini-4B-Instruct to generate well-formatted military situation reports (SITREPs) using NeMo Automodel framework and NeMo Data Designer for synthetic data generation.
 
 ## Overview
 
-This project demonstrates end-to-end fine-tuning of a 4B parameter language model to generate structured markdown situation reports for logistics deployment analysis. The pipeline includes:
+This project demonstrates end-to-end fine-tuning of a 4B parameter language model to generate structured markdown situation reports from multiple intelligence source inputs. The pipeline includes:
 
-1. **Synthetic data generation** using NVIDIA API (Llama 3.1 70B)
+1. **Synthetic data generation** using NeMo Data Designer (v2) or NVIDIA API (v1)
 2. **Training data preparation** in JSONL format
 3. **Fine-tuning with LoRA** using NeMo Automodel on remote GPU
 4. **Evaluation** comparing baseline vs fine-tuned model quality
@@ -20,11 +20,25 @@ This project demonstrates end-to-end fine-tuning of a 4B parameter language mode
 ## Project Structure
 
 ```
-logistics-sitrep-finetuning/
+sitrep-finetuning/
 ├── README.md                          # This file
 ├── TRAINING_SUMMARY.md                # Detailed training results and analysis
 ├── requirements.txt                   # Python dependencies
-├── .env                              # Environment variables (NVIDIA_API_KEY)
+├── .env                               # Environment variables (not tracked)
+├── .gitignore                         # Git ignore rules
+│
+├── .cursor/                           # Cursor IDE configuration
+│   ├── rules/                         # Project rules for AI assistance
+│   └── skills/                        # Custom skills (NeMo docs, etc.)
+│
+├── .data-designer/                    # NeMo Data Designer local config
+│   ├── model_configs.yaml             # Model configurations
+│   └── model_providers.yaml           # API provider settings
+│
+├── DataDesigner/                      # NeMo Data Designer (cloned, not tracked)
+│   └── .venv/                         # Data Designer virtual environment
+│
+├── .venv/                             # Project virtual environment (not tracked)
 │
 ├── config/
 │   ├── automodel_training_config.yaml # NeMo Automodel training configuration
@@ -32,10 +46,12 @@ logistics-sitrep-finetuning/
 │   └── data_designer_config.yaml      # Data generation settings
 │
 ├── scripts/
-│   ├── 1_generate_synthetic_data.py   # Generate sit reps with NVIDIA API
+│   ├── 1_generate_synthetic_data.py   # V1: Generate sit reps with NVIDIA API
+│   ├── 1_generate_synthetic_data_v2.py # V2: Generate with NeMo Data Designer
 │   ├── 2_prepare_training_data.py     # Convert to JSONL for training
 │   ├── 4_evaluate_model.py            # Evaluate and compare models
-│   └── run_training_remote.sh         # Training script for remote GPU
+│   ├── run_training_remote.sh         # Training script for remote GPU
+│   └── start_nt3nano.sh               # Script to start Nemotron Nano
 │
 ├── src/
 │   ├── data_generation/
@@ -49,11 +65,14 @@ logistics-sitrep-finetuning/
 │       └── inference_utils.py         # Model loading and generation
 │
 ├── data/
-│   ├── raw/                           # Generated sit reps (markdown)
-│   │   └── sitrep_coastal_expansion_day*.md
-│   └── processed/                     # Training data (JSONL)
-│       ├── train.jsonl                # 6 training examples
-│       └── val.jsonl                  # 1 validation example
+│   └── scenarios/                     # Generated scenario data
+│       ├── scenario_001_*/            # Individual scenarios
+│       │   ├── backbone.json          # Scenario backbone data
+│       │   ├── metadata.json          # Generation metadata
+│       │   ├── inputs/                # Intel report snippets (*.md)
+│       │   ├── output/                # Generated SITREP (sitrep.md)
+│       │   └── training_sample.jsonl  # Training pair for this scenario
+│       └── training_data.jsonl        # Combined training data
 │
 └── outputs/
     ├── models/
@@ -71,7 +90,7 @@ logistics-sitrep-finetuning/
 ## Prerequisites
 
 ### Local Machine
-- Python 3.12+
+- Python 3.10+ (3.12 recommended)
 - `uv` package manager ([installation](https://github.com/astral-sh/uv))
 - NVIDIA API key ([get one here](https://build.nvidia.com/))
 
@@ -87,18 +106,57 @@ logistics-sitrep-finetuning/
 
 ```bash
 # Clone/navigate to project directory
-cd /path/to/logistics-sitrep-finetuning
+cd /path/to/sitrep-finetuning
+
+# Create virtual environment at project root
+python -m venv .venv
+source .venv/bin/activate
 
 # Create .env file with your NVIDIA API key
 cat > .env << 'EOF'
 NVIDIA_API_KEY=nvapi-YOUR_KEY_HERE
 EOF
 
-# Install Python dependencies with uv
-uv pip install -r requirements.txt
+# Install Python dependencies
+pip install -r requirements.txt
 ```
 
-### 2. Remote Server Setup
+### 2. NeMo Data Designer Setup (for V2 data generation)
+
+NeMo Data Designer is used by `scripts/1_generate_synthetic_data_v2.py` to generate synthetic SITREP training data. It is **not tracked** in this repository and must be cloned separately.
+
+```bash
+# Clone NeMo Data Designer into the project directory
+git clone https://github.com/NVIDIA-NeMo/DataDesigner.git
+
+# Create a separate virtual environment for Data Designer
+cd DataDesigner
+python -m venv .venv
+source .venv/bin/activate
+
+# Install Data Designer from source
+make install
+# Or: pip install -e .
+
+# Configure Data Designer with your API keys
+data-designer config providers
+data-designer config models
+
+# Return to project root
+cd ..
+```
+
+**Configuration files** are stored in `.data-designer/`:
+- `model_providers.yaml` - API provider settings (NVIDIA, OpenAI, etc.)
+- `model_configs.yaml` - Model aliases and inference parameters
+
+**Running V2 data generation:**
+```bash
+# Use the Data Designer's virtual environment
+DataDesigner/.venv/bin/python scripts/1_generate_synthetic_data_v2.py --count 20
+```
+
+### 3. Remote Server Setup
 
 ```bash
 # SSH into remote server
@@ -111,27 +169,47 @@ echo 'nvapi-YOUR_NGC_API_KEY' | docker login nvcr.io --username '$oauthtoken' --
 docker pull nvcr.io/nvidian/nemo-automodel:26.02.rc0
 
 # Create workspace directory
-mkdir -p ~/logistics-training-fresh/{config,data/processed,scripts,src}
+mkdir -p ~/sitrep-training/{config,data/scenarios,scripts,src}
 ```
 
 ## Usage
 
 ### Step 1: Generate Synthetic Data (Local)
 
+Two approaches are available for generating training data:
+
+#### Option A: V2 - NeMo Data Designer (Recommended)
+
+Generate INDOPACOM-style SITREPs with multiple intel source inputs:
+
+```bash
+# Activate Data Designer environment and run
+DataDesigner/.venv/bin/python scripts/1_generate_synthetic_data_v2.py --count 20
+```
+
+**Output:**
+- `data/scenarios/scenario_NNN_*/` - Individual scenario directories containing:
+  - `inputs/*.md` - Multiple intel report snippets (FLASH, ISR, SENSOR, etc.)
+  - `output/sitrep.md` - Consolidated 8-section SITREP
+  - `backbone.json` - Scenario backbone data
+  - `metadata.json` - Generation metadata
+  - `training_sample.jsonl` - Training pair for this scenario
+- `data/scenarios/training_data.jsonl` - Combined training data from all scenarios
+
+**Scenario types:** Korean Peninsula Tension, South China Sea Standoff, Taiwan Invasion, Vessel Incursion, Routine Patrol
+
+#### Option B: V1 - Direct NVIDIA API
+
 Generate logistics sit reps using NVIDIA's hosted Llama 3.1 70B:
 
 ```bash
-uv run python scripts/1_generate_synthetic_data.py
+source .venv/bin/activate
+python scripts/1_generate_synthetic_data.py
 ```
 
 **Output:**
 - `data/raw/sitrep_coastal_expansion_day*.md` - 7 markdown sit reps
 - Each sit rep contains 5 location analyses with logistics data
-
-**What it does:**
-- Generates random logistics data (coordinates, costs, demand, risks)
-- Calls NVIDIA API to generate formatted sit reps
-- Applies strict formatting evaluation (baseline: 80.7/100)
 
 ### Step 2: Prepare Training Data (Local)
 
