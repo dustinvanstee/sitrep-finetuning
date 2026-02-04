@@ -1,0 +1,24 @@
+OpenCode Tool Calling Diagram Prompt
+
+Create a simple Mermaid flowchart showing:
+
+1. ORCHESTRATOR
+   - OpenCode harness running Nemotron 330B
+   - This is the main reasoning agent
+
+2. TOOLS
+   - SITREP Tool: powered by Nemotron Mini 4B (fine-tuned with LoRA)
+     - This is the one tool we have built
+     - Solid line connection (exists now)
+   - Future tools shown with dashed lines:
+     - Analysis Tool
+     - Planning Tool
+     - Ellipsis (...) to indicate extensibility
+
+Style notes:
+- Left-to-right flowchart (LR)
+- Keep it simple, no subgraphs needed
+- Use solid lines (-->) for existing tools
+- Use dashed lines (-.->) for future/planned tools
+- Concise labels with <br/> for line breaks
+- Dark mode compatible (no custom fill colors)

@@ -1,0 +1,67 @@
+Data Generation Pipeline Diagram Prompt (1_generate_synthetic_data_v2.py)
+
+Create a Mermaid flowchart showing the two-pass data generation pipeline for SITREP training data.
+
+PHASE 1: SCENARIO PARAMETERS
+- NeMo Data Designer with SamplerColumnConfig using CategorySamplerParams
+- Sampled values (all categorical with optional weights):
+  - scenario_type (weighted by intensity/frequency)
+  - theater_location
+  - escalation_level
+  - reporting_unit
+  - classification
+  - adversary_nation (China 60%, DPRK 30%, Russia 10%)
+- scenario_type drives lookup into SCENARIO_PROFILES dict
+- Profile determines report counts and inclusion probabilities
+
+PHASE 1b: SCENARIO BACKBONE (consistency layer)
+- NeMo Data Designer with LLMStructuredColumnConfig
+- Uses ScenarioBackbone Pydantic model for guaranteed schema
+- Generates consistent facts that ALL subsequent reports reference:
+  - Adversary: unit, vessel count, aircraft count, location, grid ref, activity
+  - Missiles: type, count, launch location, trajectory
+  - Friendly forces: ARG name, air wing, readiness %, munitions, personnel
+  - Cyber/EW: target, method, effect
+  - Partner: nation, request
+  - Weather: visibility, sea state, forecast
+  - Assessment: threat level, confidence level, primary assessment
+
+PHASE 2: INPUT REPORT GENERATION
+- Each report type generated via direct LLM call
+- All reports reference backbone facts for consistency
+- Report types (variable count, some conditional):
+  - FLASH reports (1-4, based on scenario)
+  - Missile Warning (conditional on profile probability)
+  - ISR reports (1-4)
+  - Sensor reports (1-5, uses NDD CategorySampler for platform selection)
+  - Air Track Summary
+  - Cyber/EW report (conditional)
+  - Friendly Force Status
+  - Partner/Allied report (conditional)
+  - METOC report
+  - OSINT report
+  - HUMINT report (conditional)
+  - SIGINT report (conditional)
+  - Submarine Contact (conditional)
+  - Space Intel (conditional for space scenarios or high escalation)
+  - Narrative Summary (conditional)
+
+PHASE 3: SITREP OUTPUT
+- Direct LLM call (not structured output - smaller models struggle with complex nested Pydantic)
+- Takes all input reports + backbone facts
+- Uses 8-section SITREP template
+- Outputs consolidated SITREP
+
+OUTPUT FILES
+- data/scenarios/scenario_XXX_<type>/
+  - inputs/*.md (all generated input reports)
+  - output/sitrep.md (consolidated SITREP)
+  - backbone.json (scenario facts for reference)
+  - training_sample.jsonl (input/output pair for fine-tuning)
+  - metadata.json (scenario metadata)
+
+Style notes:
+- Use subgraphs to group phases
+- No custom fill colors (dark mode compatible)
+- Show flow between phases with arrows
+- Use <br/> for multi-line node labels

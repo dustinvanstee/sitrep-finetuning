@@ -1,0 +1,57 @@
+flowchart TB
+    subgraph Phase1["Phase 1: Scenario Parameters"]
+        NDD1[NeMo Data Designer]
+        NDD1 --> Samplers["SamplerColumnConfig<br/>(CategorySamplerParams)"]
+        Samplers --> ScenType[scenario_type<br/>weighted]
+        Samplers --> Theater[theater_location]
+        Samplers --> Escal[escalation_level]
+        Samplers --> Unit[reporting_unit]
+        Samplers --> Class[classification]
+        Samplers --> Adv[adversary_nation]
+        
+        ScenType --> Profile[Scenario Profile<br/>lookup]
+        Profile --> ReportCounts[Report counts<br/>& probabilities]
+    end
+
+    subgraph Phase1b["Phase 1b: Scenario Backbone"]
+        NDD2[NeMo Data Designer]
+        NDD2 --> Struct["LLMStructuredColumnConfig<br/>(ScenarioBackbone Pydantic)"]
+        Struct --> Backbone["Consistent Facts:<br/>- adversary unit/location<br/>- vessel/aircraft counts<br/>- friendly forces<br/>- cyber/EW details<br/>- partner nation<br/>- weather/threat level"]
+    end
+
+    subgraph Phase2["Phase 2: Input Reports (LLM calls using backbone)"]
+        Backbone --> Gen[Report Generators]
+        Gen --> Flash[FLASH reports]
+        Gen --> Missile[Missile Warning]
+        Gen --> ISR[ISR reports]
+        Gen --> Sensor[Sensor reports<br/>NDD sampler for platform]
+        Gen --> Air[Air Track]
+        Gen --> Cyber[Cyber/EW]
+        Gen --> Friendly[Friendly Force]
+        Gen --> Partner[Partner/Allied]
+        Gen --> METOC[METOC]
+        Gen --> OSINT[OSINT]
+        Gen --> HUMINT[HUMINT]
+        Gen --> SIGINT[SIGINT]
+        Gen --> Sub[Submarine Contact]
+        Gen --> Narrative[Narrative Summary]
+    end
+
+    subgraph Phase3["Phase 3: SITREP Output"]
+        AllInputs[All Input Reports] --> SitrepGen[Direct LLM Call<br/>8-section template]
+        Backbone --> SitrepGen
+        SitrepGen --> SITREP[Consolidated SITREP]
+    end
+
+    subgraph Output["Output Files"]
+        SITREP --> OutDir["data/scenarios/scenario_XXX/"]
+        OutDir --> InputsDir["inputs/*.md"]
+        OutDir --> OutputDir["output/sitrep.md"]
+        OutDir --> BackboneJSON["backbone.json"]
+        OutDir --> TrainJSONL["training_sample.jsonl"]
+    end
+
+    Phase1 --> Phase1b
+    Phase1b --> Phase2
+    Phase2 --> Phase3
+    Phase3 --> Output

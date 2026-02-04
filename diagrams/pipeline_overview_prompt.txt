@@ -1,0 +1,37 @@
+SITREP Fine-Tuning Pipeline Diagram Prompt
+
+Create a Mermaid flowchart showing the end-to-end ML pipeline with 4 stages:
+
+1. DATA GENERATION
+   - NeMo Data Designer using NVIDIA API generates synthetic scenarios
+   - Output goes to data/scenarios/ directory
+   - Each scenario contains:
+     - inputs/*.md (flash reports, ISR, sensor data, METOC, OSINT, etc.)
+     - output/sitrep.md (the summary SITREP)
+   - Show placeholder for future auxiliary/non-sitrep data (dashed line)
+
+2. DATA PREPARATION  
+   - data_preprocessor.py converts scenarios to training format
+   - Inputs and outputs feed into the preprocessor
+   - Auxiliary data (future) also feeds in
+   - Outputs: train.jsonl (~152 examples), val.jsonl (~38 examples)
+
+3. NEMO AUTOMODEL TRAINING
+   - Runs in Docker container (nemo-automodel:26.02.rc0)
+   - Uses FSDP2 distributed training on 4x H100 GPUs
+   - Base model: Nemotron-Mini-4B-Instruct (show as database shape)
+   - LoRA fine-tuning: rank=32, alpha=64
+   - Output: checkpoint with ~88MB adapter
+
+4. MODEL EVALUATION
+   - evaluate_model.py compares baseline vs fine-tuned
+   - Both checkpoint and base model feed into evaluation
+   - Metrics: Formatting metrics + LLM-as-Judge scoring
+   - Output: Evaluation report
+
+Style notes:
+- Use subgraphs to group each stage
+- No custom fill colors (dark mode compatible)
+- Use dashed lines (-.->)) for future/planned connections
+- Use database shape [( )] for the base model
+- Keep node text concise with <br/> for line breaks

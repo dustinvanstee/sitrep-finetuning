@@ -1,18 +1,22 @@
-# NeMo Automodel Training Configuration for Logistics Sit Rep Fine-Tuning
-# Based on automodel.ipynb pattern for Nemotron Nano 3 PEFT training
+# NeMo Automodel Training Configuration for INDOPACOM SITREP Fine-Tuning
+# 4x H100 GPU distributed training with LoRA
+# Usage: torchrun --nproc_per_node=4 Automodel/examples/llm_finetune/finetune.py -c config/automodel_training_config.yaml
 
-# Training loop configuration - controls steps, checkpointing, and validation
+# Training loop configuration - 4x H100 GPUs
+# With 152 training examples and batch size 12, one epoch = ~13 steps
+# 20 epochs × 13 steps = 260 steps
 step_scheduler:
-  global_batch_size: 4      # Total samples across all GPUs per step (4B model fits comfortably)
-  local_batch_size: 1       # Samples per GPU per forward pass
-  max_steps: 100            # Total training steps (adjust based on dataset size)
-  ckpt_every_steps: 50      # Save checkpoint every N steps
-  val_every_steps: 50       # Run validation every N steps
+  global_batch_size: 12     # 4 GPUs x 3 samples = 12 per step
+  local_batch_size: 3       # 3 samples per GPU (~65 GiB, optimal for H100)
+  max_steps: 260            # Total training steps (~20 epochs)
+  num_epochs: 20            # Explicitly set epoch limit (was defaulting to 10)
+  ckpt_every_steps: 65      # Save checkpoint 4 times
+  val_every_steps: 65       # Validate 4 times
 
-# Distributed environment configuration (single GPU setup)
+# Distributed environment configuration (4x GPU setup)
 dist_env:
   backend: nccl             # NVIDIA collective communications library
-  timeout_minutes: 1        # Wait time for GPU communication before failure
+  timeout_minutes: 5        # More time for multi-GPU sync
 
 # Random Number Generator for reproducibility
 rng:
@@ -37,15 +41,15 @@ compile:
   dynamic: true             # Set to false for better performance with fixed shapes
   backend: null             # Use default backend (inductor)
 
-# Distributed training strategy (single GPU - no parallelization)
+# Distributed training strategy (4x H100 GPUs with FSDP2)
 distributed:
   _target_: nemo_automodel.components.distributed.fsdp2.FSDP2Manager
-  dp_size: none
-  dp_replicate_size: 1      # For DDP usecase, use DDPManager
-  tp_size: 1                # Tensor parallelism (1 = disabled)
+  dp_size: 4                # Data parallel sharding across 4 GPUs
+  dp_replicate_size: 1      # No replication (pure FSDP)
+  tp_size: 1                # Tensor parallelism (1 = disabled, 4B model fits on single GPU)
   cp_size: 1                # Context parallelism (1 = disabled)
   sequence_parallel: false
-  defer_fsdp_grad_sync: false
+  defer_fsdp_grad_sync: true
 
 # Loss function configuration
 loss_fn:
@@ -104,8 +108,8 @@ lr_scheduler:
 peft:
   _target_: nemo_automodel.components._peft.lora.PeftConfig
   match_all_linear: true    # Apply LoRA adapters to all linear layers
-  dim: 32                   # LoRA rank (higher = more parameters, better fit)
-  alpha: 64                 # LoRA scaling factor (alpha/rank = effective scaling)
+  dim: 64                   # LoRA rank (higher = more parameters, better fit)
+  alpha: 128                # LoRA scaling factor (alpha/rank = effective scaling = 2)
   use_triton: true          # Use Triton-optimized GPU kernels for LoRA operations
 
 # Optional: Weights & Biases logging (uncomment to enable)

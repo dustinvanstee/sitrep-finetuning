@@ -1,0 +1,35 @@
+flowchart TB
+    subgraph DataGen["1. Data Generation"]
+        NDD[NeMo Data Designer<br/>NVIDIA API]
+        NDD --> Scenarios["data/scenarios/"]
+        Scenarios --> Inputs["inputs/*.md<br/>(flash, ISR, sensor,<br/>METOC, OSINT, etc.)"]
+        Scenarios --> Output["output/sitrep.md<br/>(summary SITREP)"]
+        
+        NDD -.-> Aux["Auxiliary Data<br/>(future)"]
+    end
+
+    subgraph DataPrep["2. Data Preparation"]
+        Inputs --> Prep[data_preprocessor.py]
+        Output --> Prep
+        Aux -.-> Prep
+        Prep --> Train[train.jsonl<br/>152 examples]
+        Prep --> Val[val.jsonl<br/>38 examples]
+    end
+
+    subgraph Training["3. NeMo Automodel Training"]
+        Train --> Docker[Docker Container<br/>nemo-automodel:26.02.rc0]
+        Val --> Docker
+        Docker --> FSDP[FSDP2<br/>4x H100 GPUs]
+        BaseModel[(Nemotron-Mini-4B<br/>Instruct)] --> FSDP
+        FSDP --> LoRA[LoRA Adapter<br/>rank=32, alpha=64]
+        LoRA --> Ckpt[Checkpoint<br/>~88MB adapter]
+    end
+
+    subgraph Evaluation["4. Model Evaluation"]
+        Ckpt --> Eval[evaluate_model.py]
+        BaseModel --> Eval
+        Eval --> Metrics[Formatting Metrics]
+        Eval --> Judge[LLM-as-Judge<br/>Scoring]
+        Metrics --> Report[Evaluation Report]
+        Judge --> Report
+    end

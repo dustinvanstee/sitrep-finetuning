@@ -1,117 +1,96 @@
-# Evaluation Configuration for Sit Rep Quality Assessment
+# Evaluation Configuration for INDOPACOM SITREP Fine-Tuning (V2)
+# Usage: python scripts/4_evaluate_model.py --config config/evaluation_config.yaml
+
+# Test data configuration
+test_data:
+  path: "data/processed/val.jsonl"  # Validation set for evaluation
 
 # Model paths
 models:
+  # Local baseline: Base model before fine-tuning (runs on GPU)
   baseline:
-    name: "nemotron-mini-4b-instruct-baseline"
-    path: "nvidia/Nemotron-Mini-4B-Instruct"
-    type: "pretrained"
-
+    path: "nvidia/Nemotron-Mini-4B-Instruct"  # Base model (HuggingFace)
+  
+  # Fine-tuned: Your trained LoRA adapter (runs on GPU)
   finetuned:
-    name: "nemotron-mini-4b-instruct-finetuned"
-    path: "checkpoints/LOWEST_VAL/model"
-    type: "finetuned"
+    path: "outputs/checkpoints/latest"  # LoRA adapter path after training
+    # Alternative: full merged model path
+  
+  # Cloud baseline: Large cloud-hosted model as "gold standard" reference
+  # Helps answer: "Does fine-tuning a small 4B model achieve comparable quality to a 49B model?"
+  cloud_baseline:
+    enabled: true  # Set to false to skip cloud baseline evaluation
+    name: "Nemotron-Super-49B"  # Display name in reports/visualizations
+    model: "nvidia/llama-3.3-nemotron-super-49b-v1.5"
+    # Uses NVIDIA API - requires NVIDIA_API_KEY env var
+    base_url: "https://integrate.api.nvidia.com/v1"
+    # api_key: null  # Uses NVIDIA_API_KEY env var by default
+    system_prompt: "/think"  # Enable chain-of-thought reasoning
+    temperature: 0.6
+    top_p: 0.95
+    max_tokens: 4096
 
-# Test data
-test_data:
-  path: "data/processed/val.jsonl"
-  num_samples: null  # null means use all test samples
-
-# Generation parameters
+# Generation parameters for local models (baseline and finetuned)
 generation:
   max_new_tokens: 4096
   temperature: 0.7
   top_p: 0.9
   top_k: 50
-  do_sample: true
   repetition_penalty: 1.1
+  do_sample: true
 
-# Formatting metrics weights (total = 100)
-metrics:
-  section_completeness:
-    weight: 40
-    components:
-      has_title: 5
-      has_tldr_section: 10
-      has_executive_summary: 5
-      has_location_analysis: 5
-      has_comparative_analysis: 5
-      has_recommendations: 5
-      has_action_items: 5
+# Instruction prompt prepended to all inputs for consistent evaluation
+# This mirrors the guidance used during synthetic data generation
+# Use --no-instruction-prompt flag to disable
+instruction_prompt: |
+  You are a military operations officer. Based on the following intelligence inputs, generate a consolidated Situation Report (SITREP).
 
-  tldr_quality:
-    weight: 20
-    components:
-      has_recommendation: 7
-      has_insight: 7
-      has_citations: 6
+  FORMAT REQUIREMENTS:
+  - Use NUMBERED section headers exactly as shown: "1. BLUF", "2. FRIENDLY FORCES", etc.
+  - Separate sections with "---" dividers
+  - Use bullet points with "-" for list items
 
-  markdown_formatting:
-    weight: 20
-    components:
-      header_usage: 5
-      bold_italic: 3
-      tables: 3
-      checkboxes: 3
-      bullet_points: 3
-      links: 3
+  REQUIRED SECTIONS:
+  1. BLUF (Bottom Line Up Front) - 2-4 bullet points with confidence level and probability assessment
+  2. FRIENDLY FORCES - Status and readiness assessment
+  3. ADVERSARY ACTIVITY - Enemy actions and threat assessment
+  4. OPERATIONS - Current and planned operations
+  5. LOGISTICS - Supply status and shortfalls
+  6. INTELLIGENCE ASSESSMENT - Key findings, information gaps, analyst judgment
+  7. RISKS / WATCH ITEMS - Key risks and concerns
+  8. COMMANDER'S COMMENTS - Guidance and priority focus
 
-  structure_quality:
-    weight: 20
-    components:
-      single_h1_header: 5
-      min_h2_headers: 10  # Requires 5+ H2 headers
-      min_h3_headers: 5   # Requires 3+ H3 headers
+  Generate ONLY the SITREP using the exact numbered format above. No additional commentary.
 
-# Quality thresholds
-thresholds:
-  minimum_viable:
-    total_score: 60
-    section_completeness: 30
-    tldr_quality: 12
+  === INTELLIGENCE INPUTS ===
 
-  production_ready:
-    total_score: 80
-    section_completeness: 36
-    tldr_quality: 16
+# LLM Judge configuration
+# The judge evaluates the quality of generated SITREPs
+judge:
+  # Provider options: nvidia, openai, anthropic, local-nim, ollama
+  provider: "nvidia"
+  
+  # Model name - using same model as cloud baseline (confirmed working)
+  model: "nvidia/llama-3.3-nemotron-super-49b-v1.5"
+  
+  # Lower temperature for more consistent evaluation
+  temperature: 0.3
+  
+  # Optional: API key (can also use env vars)
+  # NVIDIA_API_KEY, OPENAI_API_KEY, ANTHROPIC_API_KEY
+  # api_key: null
+  
+  # Optional: custom base URL
+  # For local-nim: http://localhost:8000/v1
+  # For ollama: http://localhost:11434/v1
+  # base_url: null
 
-# Content metrics (optional)
-content_metrics:
-  enabled: true
-  rouge:
-    enabled: true
-    types: ["rouge1", "rouge2", "rougeL"]
-
-  bert_score:
-    enabled: false  # Resource intensive
-    model: "microsoft/deberta-xlarge-mnli"
-
-# Output settings
+# Output configuration
 output:
-  save_dir: "outputs/evaluation_results"
-  save_generated_sitreps: true
-  save_metrics_csv: true
-  save_comparison_report: true
+  save_dir: "outputs/evaluation_results_v2"
   save_visualizations: true
+  save_comparison_report: true
 
-# Visualization settings
-visualization:
-  create_comparison_plots: true
-  create_metric_heatmaps: true
-  create_score_distributions: true
-  plot_format: "png"
-  dpi: 300
-
-# Reporting
-report:
-  format: "markdown"
-  include_examples: true
-  num_examples_per_category: 3  # best, median, worst
-  include_failure_analysis: true
-  include_statistical_tests: true
-
-# Parallel processing
+# Processing options
 processing:
-  batch_size: 4
-  num_workers: 2
-  device: "cuda"  # cuda or cpu (use cpu for local Mac evaluation)
+  device: "auto"  # or "cuda:0", "cpu"

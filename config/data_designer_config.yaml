@@ -1,7 +1,7 @@
 # NVIDIA Data Designer Configuration for Logistics Sit Rep Generation
 
 data_designer:
-  base_url: ${NEMO_MICROSERVICES_BASE_URL}
+  base_url: ${NIM_LOCAL_BASE_URL}
   api_key: ${NVIDIA_API_KEY}
 
 # Scenario definitions
